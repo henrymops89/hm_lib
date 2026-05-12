@@ -1,0 +1,152 @@
+-- ══════════════════════════════════════════════════════════════════
+--  HM Lib — Server Base
+--  MopsScripts
+-- ══════════════════════════════════════════════════════════════════
+
+local Framework     = nil
+local FrameworkName = nil
+
+local function EnsureFramework()
+    if FrameworkName then return end
+    FrameworkName = exports.hm_lib:GetFramework()
+    if FrameworkName == 'esx' then
+        Framework = exports['es_extended']:getSharedObject()
+    elseif FrameworkName == 'qb' then
+        Framework = exports['qb-core']:GetCoreObject()
+    elseif FrameworkName == 'qbx' then
+        Framework = exports.qbx_core
+    end
+end
+
+-- ── Identifiers ──────────────────────────────────────────────────
+
+function GetPlayer(src)
+    EnsureFramework()
+    if FrameworkName == 'esx' then
+        return Framework.GetPlayerFromId(src)
+    elseif FrameworkName == 'qbx' then
+        return exports.qbx_core:GetPlayer(src)
+    elseif FrameworkName == 'qb' then
+        return Framework.Functions.GetPlayer(src)
+    end
+    return nil
+end
+
+function GetIdentifier(src)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return nil end
+    if FrameworkName == 'esx' then
+        return player.identifier
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return player.PlayerData.citizenid
+    end
+    return nil
+end
+
+function GetPlayerName(src)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return 'Unknown' end
+    if FrameworkName == 'esx' then
+        return player.getName()
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return player.PlayerData.charinfo.firstname .. ' ' .. player.PlayerData.charinfo.lastname
+    end
+    return 'Unknown'
+end
+
+function GetPlayerJob(src)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return { name = 'unemployed', label = 'Unemployed', grade = 0, grade_label = 'None' } end
+
+    if FrameworkName == 'esx' then
+        return {
+            name        = player.job.name,
+            label       = player.job.label,
+            grade       = player.job.grade,
+            grade_label = player.job.grade_label,
+        }
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return {
+            name        = player.PlayerData.job.name,
+            label       = player.PlayerData.job.label,
+            grade       = player.PlayerData.job.grade.level,
+            grade_label = player.PlayerData.job.grade.name,
+        }
+    end
+    return { name = 'unemployed', label = 'Unemployed', grade = 0, grade_label = 'None' }
+end
+
+function HasJob(src, jobList)
+    local job = GetPlayerJob(src)
+    if type(jobList) == 'string' then
+        return job.name == jobList
+    elseif type(jobList) == 'table' then
+        for _, j in ipairs(jobList) do
+            if job.name == j then return true end
+        end
+    end
+    return false
+end
+
+-- ── Notify (Server to Client) ────────────────────────────────────
+
+function NotifyServer(src, type, msg, title, duration)
+    TriggerClientEvent('hm_lib:client:Notify', src, type, msg, title, duration)
+end
+
+function GiveWeapon(src, weaponName, ammo)
+    ---@diagnostic disable-next-line: undefined-global
+    local inv = exports['hm_lib']:GetInventory()
+    if inv == 'ox_inventory' then
+        -- ox_inventory manages weapon equipping through its own UI (F2 → use item).
+        -- Any native give here would desync its internal state.
+        return
+    end
+    -- All other inventories: give weapon natively via client event
+    ---@diagnostic disable-next-line: undefined-global
+    TriggerClientEvent('hm_lib:client:GiveWeapon', src, weaponName, ammo or 0)
+end
+
+-- ── Usable Items ────────────────────────────────────────────────
+
+function RegisterUsableItem(name, cb)
+    EnsureFramework()
+    print(('[HM Lib] Registering usable item: %s (%s)'):format(name, FrameworkName))
+
+    if FrameworkName == 'esx' then
+        Framework.RegisterUsableItem(name, cb)
+        if Framework.AddItems then
+            local label = name:gsub('_', ' '):gsub('^%l', string.upper)
+            Framework.AddItems({{ name = name, label = label, weight = 1 }})
+        end
+    elseif FrameworkName == 'qb' then
+        Framework.Functions.CreateUseableItem(name, cb)
+    elseif FrameworkName == 'qbx' then
+        exports.qbx_core:CreateUseableItem(name, cb)
+    end
+end
+
+-- ── Exports ─────────────────────────────────────────────────────
+
+exports('GetPlayer',          GetPlayer)
+exports('GetIdentifier',      GetIdentifier)
+exports('GetPlayerName',      GetPlayerName)
+exports('GetPlayerJob',       GetPlayerJob)
+exports('HasJob',             HasJob)
+exports('GiveWeapon',         GiveWeapon)
+exports('GetItemCount',       GetItemCount)
+exports('AddItem',            AddItem)
+exports('RemoveItem',         RemoveItem)
+exports('GetMoney',           GetMoney)
+exports('AddMoney',           AddMoney)
+exports('RemoveMoney',        RemoveMoney)
+exports('GetSocietyMoney',    GetSocietyMoney)
+exports('AddSocietyMoney',    AddSocietyMoney)
+exports('RemoveSocietyMoney', RemoveSocietyMoney)
+exports('NotifyServer',       NotifyServer)
+exports('RegisterUsableItem', RegisterUsableItem)
+
+print('^2[HM Lib] Server-Side started — framework detection deferred until first use.^7')
