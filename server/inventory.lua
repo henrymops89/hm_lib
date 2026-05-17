@@ -33,56 +33,56 @@ function GetItemCount(src, item)
     return 0
 end
 
-function AddItem(src, item, amount)
+function AddItem(src, item, amount, metadata)
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
-        return exports.ox_inventory:AddItem(src, item, amount)
+        return exports.ox_inventory:AddItem(src, item, amount, metadata)
     elseif inv == 'wasabi_inventory' then
-        return exports.wasabi_inventory:AddItem(src, item, amount)
+        return exports.wasabi_inventory:AddItem(src, item, amount, metadata)
     elseif inv == 'chezza-inventory' then
-        return exports['chezza-inventory']:AddItem(src, item, amount)
+        return exports['chezza-inventory']:AddItem(src, item, amount, metadata)
     elseif inv == 'qs-inventory' then
-        return exports['qs-inventory']:AddItem(src, item, amount)
+        return exports['qs-inventory']:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'codem-inventory' then
-        return exports['codem-inventory']:AddItem(src, item, amount)
+        return exports['codem-inventory']:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'core_inventory' then
-        return exports['core_inventory']:addItem(src, item, amount)
+        return exports['core_inventory']:addItem(src, item, amount, metadata)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
-        return exports['tgiann-inventory']:AddItem(src, item, amount)
+        return exports['tgiann-inventory']:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'origen_inventory' then
-        return exports['origen_inventory']:addItem(src, item, amount)
+        return exports['origen_inventory']:addItem(src, item, amount, nil, metadata)
     elseif inv == 'qb-inventory' or inv == 'ps-inventory' then
-        return exports['qb-inventory']:AddItem(src, item, amount)
+        return exports['qb-inventory']:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'esx' or inv == 'esx_inventory' or inv == 'mf-inventory' or inv == 'ak47_inventory' then
         local xPlayer = GetPlayer(src)
         if xPlayer then xPlayer.addInventoryItem(item, amount) return true end
     elseif inv == 'qb' or inv == 'qbx' then
         local player = GetPlayer(src)
-        if player then return player.Functions.AddItem(item, amount) end
+        if player then return player.Functions.AddItem(item, amount, nil, metadata) end
     end
     return false
 end
 
-function RemoveItem(src, item, amount)
+function RemoveItem(src, item, amount, metadata)
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
-        exports.ox_inventory:RemoveItem(src, item, amount)
+        return exports.ox_inventory:RemoveItem(src, item, amount, metadata)
     elseif inv == 'wasabi_inventory' then
-        exports.wasabi_inventory:RemoveItem(src, item, amount)
+        return exports.wasabi_inventory:RemoveItem(src, item, amount, metadata)
     elseif inv == 'chezza-inventory' then
-        exports['chezza-inventory']:RemoveItem(src, item, amount)
+        return exports['chezza-inventory']:RemoveItem(src, item, amount, metadata)
     elseif inv == 'qs-inventory' then
-        exports['qs-inventory']:RemoveItem(src, item, amount)
+        return exports['qs-inventory']:RemoveItem(src, item, amount)
     elseif inv == 'codem-inventory' then
-        exports['codem-inventory']:RemoveItem(src, item, amount)
+        return exports['codem-inventory']:RemoveItem(src, item, amount)
     elseif inv == 'core_inventory' then
-        exports['core_inventory']:removeItem(src, item, amount)
+        return exports['core_inventory']:removeItem(src, item, amount)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
-        exports['tgiann-inventory']:RemoveItem(src, item, amount)
+        return exports['tgiann-inventory']:RemoveItem(src, item, amount)
     elseif inv == 'origen_inventory' then
-        exports['origen_inventory']:removeItem(src, item, amount)
+        return exports['origen_inventory']:removeItem(src, item, amount)
     elseif inv == 'qb-inventory' or inv == 'ps-inventory' then
-        exports['qb-inventory']:RemoveItem(src, item, amount)
+        return exports['qb-inventory']:RemoveItem(src, item, amount)
     elseif inv == 'esx' or inv == 'esx_inventory' or inv == 'mf-inventory' or inv == 'ak47_inventory' then
         local xPlayer = GetPlayer(src)
         if xPlayer then xPlayer.removeInventoryItem(item, amount) end

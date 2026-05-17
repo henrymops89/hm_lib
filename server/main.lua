@@ -91,6 +91,69 @@ function HasJob(src, jobList)
     return false
 end
 
+-- ── Job Management ────────────────────────────────────────────────
+
+function SetJob(src, jobName, grade)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return false end
+
+    if FrameworkName == 'esx' then
+        player.setJob(jobName, grade or 0)
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        player.Functions.SetJob(jobName, grade or 0)
+    end
+    return true
+end
+
+function GetPlayerByIdentifier(identifier)
+    EnsureFramework()
+    if not identifier or identifier == '' then return nil end
+
+    if FrameworkName == 'esx' then
+        return Framework.GetPlayerFromIdentifier(identifier)
+    elseif FrameworkName == 'qbx' then
+        return exports.qbx_core:GetPlayerByCitizenId(identifier)
+    elseif FrameworkName == 'qb' then
+        return Framework.Functions.GetPlayerByCitizenId(identifier)
+    end
+    return nil
+end
+
+function GetPlayerSource(identifier)
+    local player = GetPlayerByIdentifier(identifier)
+    if not player then return nil end
+
+    if FrameworkName == 'esx' then
+        return player.source
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return player.PlayerData.source
+    end
+    return nil
+end
+
+function GetJobs()
+    EnsureFramework()
+    if FrameworkName == 'esx' then
+        return Framework.GetJobs and Framework.GetJobs() or {}
+    elseif FrameworkName == 'qbx' then
+        return exports.qbx_core:GetJobs()
+    elseif FrameworkName == 'qb' then
+        return Framework.Shared and Framework.Shared.Jobs or {}
+    end
+    return {}
+end
+
+function GetGangs()
+    EnsureFramework()
+    if FrameworkName == 'qbx' then
+        return exports.qbx_core:GetGangs()
+    elseif FrameworkName == 'qb' then
+        return Framework.Shared and Framework.Shared.Gangs or {}
+    end
+    return {}
+end
+
 -- ── Notify (Server to Client) ────────────────────────────────────
 
 function NotifyServer(src, type, msg, title, duration)
@@ -98,7 +161,6 @@ function NotifyServer(src, type, msg, title, duration)
 end
 
 function GiveWeapon(src, weaponName, ammo)
-    ---@diagnostic disable-next-line: undefined-global
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
         -- ox_inventory manages weapon equipping through its own UI (F2 → use item).
@@ -106,7 +168,6 @@ function GiveWeapon(src, weaponName, ammo)
         return
     end
     -- All other inventories: give weapon natively via client event
-    ---@diagnostic disable-next-line: undefined-global
     TriggerClientEvent('hm_lib:client:GiveWeapon', src, weaponName, ammo or 0)
 end
 
@@ -131,12 +192,17 @@ end
 
 -- ── Exports ─────────────────────────────────────────────────────
 
-exports('GetPlayer',          GetPlayer)
-exports('GetIdentifier',      GetIdentifier)
-exports('GetPlayerName',      GetPlayerName)
-exports('GetPlayerJob',       GetPlayerJob)
-exports('HasJob',             HasJob)
-exports('GiveWeapon',         GiveWeapon)
+exports('GetPlayer',              GetPlayer)
+exports('GetIdentifier',          GetIdentifier)
+exports('GetPlayerName',          GetPlayerName)
+exports('GetPlayerJob',           GetPlayerJob)
+exports('HasJob',                 HasJob)
+exports('SetJob',                 SetJob)
+exports('GetPlayerByIdentifier',  GetPlayerByIdentifier)
+exports('GetPlayerSource',        GetPlayerSource)
+exports('GetJobs',                GetJobs)
+exports('GetGangs',               GetGangs)
+exports('GiveWeapon',             GiveWeapon)
 exports('GetItemCount',       GetItemCount)
 exports('AddItem',            AddItem)
 exports('RemoveItem',         RemoveItem)
