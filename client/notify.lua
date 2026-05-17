@@ -3,9 +3,9 @@
 -- ══════════════════════════════════════════════════════════════════
 
 function Notify(type, msg, title, duration)
-    local title = title or 'Information'
-    local duration = duration or 5000
-    local type = type or 'info'
+    title = title or 'Information'
+    duration = duration or 5000
+    type = type or 'info'
 
     -- ox_lib is mandatory, so use it as primary
     if GetResourceState('ox_lib') == 'started' then

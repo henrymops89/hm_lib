@@ -3,11 +3,11 @@
 -- ══════════════════════════════════════════════════════════════════
 
 function ProgressBar(duration, label, dict, anim, flag)
-    local duration = duration or 5000
-    local label = label or 'Interagieren...'
-    local dict = dict or nil
-    local anim = anim or nil
-    local flag = flag or 49
+    duration = duration or 5000
+    label = label or 'Interagieren...'
+    dict = dict or nil
+    anim = anim or nil
+    flag = flag or 49
 
     -- ox_lib is mandatory
     if GetResourceState('ox_lib') == 'started' then
