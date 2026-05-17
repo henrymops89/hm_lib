@@ -3,10 +3,16 @@ game 'gta5'
 
 name 'hm_lib'
 description 'Centralized Library for HM Resources — MopsScripts'
-version '1.0.0'
+version '1.1.0'
 author 'MopsScripts'
 
-dependency 'ox_lib'
+dependencies {
+    'ox_lib',
+}
+
+files {
+    'imports.lua',
+}
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -40,7 +46,10 @@ exports {
     'GetInteractionMode',
     'IsResourceStarted',
     'CreateCommand',
-    
+    'FormatCurrency',
+    'GetDistance',
+    'DeepCopy',
+
     -- Client
     'Notify',
     'ProgressBar',
@@ -58,6 +67,12 @@ server_exports {
     'GetPlayerName',
     'GetPlayerJob',
     'HasJob',
+    'SetJob',
+    'GetPlayerByIdentifier',
+    'GetPlayerSource',
+    'GetJobs',
+    'GetGangs',
+    'GiveWeapon',
     'GetItemCount',
     'AddItem',
     'RemoveItem',
