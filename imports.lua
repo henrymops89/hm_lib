@@ -67,9 +67,10 @@ end
 Target = {}
 
 if not isServer then
-    function Target.AddModel(models, options)       return lib:AddTargetModel(models, options) end
-    function Target.AddEntity(entity, options)      return lib:AddTargetEntity(entity, options) end
-    function Target.Remove(handle, name)            return lib:RemoveTarget(handle, name) end
+    function Target.AddModel(models, options)          return lib:AddTargetModel(models, options) end
+    function Target.AddEntity(entity, options)         return lib:AddTargetEntity(entity, options) end
+    function Target.Remove(handle, name)               return lib:RemoveTarget(handle, name) end
+    function Target.RemoveModel(models, names)         return lib:RemoveModelTarget(models, names) end
 end
 
 -- ── Utils Bridge (Utils) ────────────────────────────────────────

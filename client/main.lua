@@ -14,7 +14,8 @@ end)
 
 -- ── Exports ─────────────────────────────────────────────────────
 
-exports('Notify',          Notify)
-exports('AddTargetModel',  AddTargetModel)
-exports('AddTargetEntity', AddTargetEntity)
-exports('RemoveTarget',    RemoveTarget)
+exports('Notify',             Notify)
+exports('AddTargetModel',     AddTargetModel)
+exports('AddTargetEntity',    AddTargetEntity)
+exports('RemoveTarget',       RemoveTarget)
+exports('RemoveModelTarget',  RemoveModelTarget)

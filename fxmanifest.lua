@@ -58,7 +58,8 @@ exports {
     'GetItemCount',
     'AddTargetModel',
     'AddTargetEntity',
-    'RemoveTarget'
+    'RemoveTarget',
+    'RemoveModelTarget'
 }
 
 server_exports {
