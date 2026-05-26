@@ -26,6 +26,7 @@ client_scripts {
     'client/notify.lua',
     'client/progress.lua',
     'client/player.lua',
+    'client/garage.lua',
     'client/main.lua'
 }
 
@@ -43,6 +44,8 @@ exports {
     'GetInventory',
     'GetBanking',
     'GetTargetSystem',
+    'GetGarageSystem',
+    'GetVehicleKeysSystem',
     'GetInteractionMode',
     'IsResourceStarted',
     'CreateCommand',
@@ -59,7 +62,9 @@ exports {
     'AddTargetModel',
     'AddTargetEntity',
     'RemoveTarget',
-    'RemoveModelTarget'
+    'RemoveModelTarget',
+    'GiveJobVehicleKeys',
+    'CacheJobVehicle',
 }
 
 server_exports {

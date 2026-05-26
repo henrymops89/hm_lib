@@ -14,8 +14,10 @@ Fr = {}
 function Fr.GetFramework()          return lib:GetFramework() end
 function Fr.GetInventorySystem()    return lib:GetInventory() end
 function Fr.GetBankingSystem()      return lib:GetBanking() end
-function Fr.GetTargetSystem()       return lib:GetTargetSystem() end
-function Fr.GetInteractionMode()    return lib:GetInteractionMode() end
+function Fr.GetTargetSystem()         return lib:GetTargetSystem() end
+function Fr.GetGarageSystem()         return lib:GetGarageSystem() end
+function Fr.GetVehicleKeysSystem()    return lib:GetVehicleKeysSystem() end
+function Fr.GetInteractionMode()      return lib:GetInteractionMode() end
 function Fr.IsResourceStarted(res)  return lib:IsResourceStarted(res) end
 
 if isServer then

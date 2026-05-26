@@ -3,10 +3,12 @@
 -- ══════════════════════════════════════════════════════════════════
 
 HMLib = {
-    Framework = 'standalone',
-    Inventory = 'standalone',
-    Banking   = 'standalone',
-    Target    = 'none',
+    Framework   = 'standalone',
+    Inventory   = 'standalone',
+    Banking     = 'standalone',
+    Target      = 'none',
+    Garage      = 'builtin',
+    VehicleKeys = 'none',
 }
 
 -- ── Detection ───────────────────────────────────────────────────
@@ -81,6 +83,44 @@ local function Detect()
         HMLib.Banking = HMLib.Framework
     end
 
+    -- Garage Detection
+    if GetResourceState('cd_garage') == 'started' then
+        HMLib.Garage = 'cd_garage'
+    elseif GetResourceState('qb-garages') == 'started' then
+        HMLib.Garage = 'qb-garages'
+    elseif GetResourceState('renewed-garages') == 'started' then
+        HMLib.Garage = 'renewed-garages'
+    elseif GetResourceState('origen_garage') == 'started' then
+        HMLib.Garage = 'origen_garage'
+    elseif GetResourceState('tz_garages') == 'started' then
+        HMLib.Garage = 'tz_garages'
+    elseif GetResourceState('ps-garages') == 'started' or GetResourceState('ps-garage') == 'started' then
+        HMLib.Garage = 'ps-garages'
+    elseif GetResourceState('esx_garage') == 'started' or GetResourceState('esx-garage') == 'started' then
+        HMLib.Garage = 'esx_garage'
+    else
+        HMLib.Garage = 'builtin'
+    end
+
+    -- Vehicle Keys Detection
+    if GetResourceState('cd_garage') == 'started' then
+        -- cd_garage uses cd_bridge internally for keys
+        HMLib.VehicleKeys = 'cd_garage'
+    elseif GetResourceState('qb-vehiclekeys') == 'started' then
+        HMLib.VehicleKeys = 'qb-vehiclekeys'
+    elseif GetResourceState('qs-vehiclekeys') == 'started' then
+        HMLib.VehicleKeys = 'qs-vehiclekeys'
+    elseif GetResourceState('wasabi_carkeys') == 'started' then
+        HMLib.VehicleKeys = 'wasabi_carkeys'
+    elseif GetResourceState('Renewed-Vehiclekeys') == 'started' or GetResourceState('renewed-vehiclekeys') == 'started' then
+        HMLib.VehicleKeys = 'renewed-vehiclekeys'
+    elseif GetResourceState('LegacyFuel') == 'started' then
+        -- LegacyFuel ships with a basic key stub on some servers
+        HMLib.VehicleKeys = 'none'
+    else
+        HMLib.VehicleKeys = 'none'
+    end
+
     -- Target Detection
     if GetResourceState('ox_target') == 'started' then
         HMLib.Target = 'ox_target'
@@ -100,10 +140,12 @@ local function Detect()
     print('^2══════════════════════════════════════════════^7')
     print('^2   HM Lib — System Detection^7')
     print('^2══════════════════════════════════════════════^7')
-    print(('^2  Framework: ^7 %-15s'):format(HMLib.Framework:upper()))
-    print(('^2  Inventory: ^7 %-15s'):format(HMLib.Inventory))
-    print(('^2  Banking:   ^7 %-15s'):format(HMLib.Banking))
-    print(('^2  Target:    ^7 %-15s'):format(HMLib.Target))
+    print(('^2  Framework:    ^7 %-15s'):format(HMLib.Framework:upper()))
+    print(('^2  Inventory:    ^7 %-15s'):format(HMLib.Inventory))
+    print(('^2  Banking:      ^7 %-15s'):format(HMLib.Banking))
+    print(('^2  Target:       ^7 %-15s'):format(HMLib.Target))
+    print(('^2  Garage:       ^7 %-15s'):format(HMLib.Garage))
+    print(('^2  VehicleKeys:  ^7 %-15s'):format(HMLib.VehicleKeys))
     print('^2══════════════════════════════════════════════^7')
 end
 
@@ -129,12 +171,24 @@ function GetTargetSystem()
     return HMLib.Target
 end
 
+function GetGarageSystem()
+    if HMLib.Garage == 'builtin' and HMLib.Framework == 'standalone' then Detect() end
+    return HMLib.Garage
+end
+
+function GetVehicleKeysSystem()
+    if HMLib.VehicleKeys == 'none' and HMLib.Framework == 'standalone' then Detect() end
+    return HMLib.VehicleKeys
+end
+
 -- ── Dynamic Exports ─────────────────────────────────────────────
 
-exports('GetFramework', GetFramework)
-exports('GetInventory', GetInventory)
-exports('GetBanking',   GetBanking)
-exports('GetTargetSystem', GetTargetSystem)
+exports('GetFramework',       GetFramework)
+exports('GetInventory',       GetInventory)
+exports('GetBanking',         GetBanking)
+exports('GetTargetSystem',    GetTargetSystem)
+exports('GetGarageSystem',    GetGarageSystem)
+exports('GetVehicleKeysSystem', GetVehicleKeysSystem)
 
 exports('GetInteractionMode', function()
     local target = exports.hm_lib:GetTargetSystem()
