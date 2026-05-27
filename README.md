@@ -238,4 +238,3 @@ It is available as a **free standalone resource** on GitHub.
 
 > 🔗 [MopsScripts Documentation](https://mopsscripts.mintlify.app)  
 > 🛒 [MopsScripts on Tebex](https://mopsscripts.tebex.io)  
-> 💬 [Discord Support](https://mopsscripts.mintlify.app/support/discord)
