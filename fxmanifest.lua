@@ -26,12 +26,15 @@ client_scripts {
     'client/notify.lua',
     'client/progress.lua',
     'client/player.lua',
+    'client/garage.lua',
+    'client/doors.lua',
     'client/main.lua'
 }
 
 server_scripts {
     'server/inventory.lua',
     'server/banking.lua',
+    'server/doors.lua',
     'server/main.lua'
 }
 
@@ -43,6 +46,9 @@ exports {
     'GetInventory',
     'GetBanking',
     'GetTargetSystem',
+    'GetGarageSystem',
+    'GetVehicleKeysSystem',
+    'GetDoorLockSystem',
     'GetInteractionMode',
     'IsResourceStarted',
     'CreateCommand',
@@ -58,7 +64,12 @@ exports {
     'GetItemCount',
     'AddTargetModel',
     'AddTargetEntity',
-    'RemoveTarget'
+    'RemoveTarget',
+    'RemoveModelTarget',
+    'GiveJobVehicleKeys',
+    'CacheJobVehicle',
+    'SetDoorState',
+    'GetDoorState',
 }
 
 server_exports {
@@ -83,5 +94,7 @@ server_exports {
     'AddSocietyMoney',
     'RemoveSocietyMoney',
     'NotifyServer',
-    'RegisterUsableItem'
+    'RegisterUsableItem',
+    'SetDoorState',
+    'LockdownBuilding'
 }

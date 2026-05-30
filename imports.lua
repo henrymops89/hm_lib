@@ -14,8 +14,11 @@ Fr = {}
 function Fr.GetFramework()          return lib:GetFramework() end
 function Fr.GetInventorySystem()    return lib:GetInventory() end
 function Fr.GetBankingSystem()      return lib:GetBanking() end
-function Fr.GetTargetSystem()       return lib:GetTargetSystem() end
-function Fr.GetInteractionMode()    return lib:GetInteractionMode() end
+function Fr.GetTargetSystem()         return lib:GetTargetSystem() end
+function Fr.GetGarageSystem()         return lib:GetGarageSystem() end
+function Fr.GetVehicleKeysSystem()    return lib:GetVehicleKeysSystem() end
+function Fr.GetDoorLockSystem()       return lib:GetDoorLockSystem() end
+function Fr.GetInteractionMode()      return lib:GetInteractionMode() end
 function Fr.IsResourceStarted(res)  return lib:IsResourceStarted(res) end
 
 if isServer then
@@ -62,14 +65,27 @@ else
     end
 end
 
+-- ── Door Lock Bridge (Doors) ────────────────────────────────────
+
+Doors = {}
+
+if isServer then
+    function Doors.SetDoorState(doorId, state)          return lib:SetDoorState(doorId, state) end
+    function Doors.LockdownBuilding(locationGroup, state) return lib:LockdownBuilding(locationGroup, state) end
+else
+    function Doors.SetDoorState(doorId, state)          return lib:SetDoorState(doorId, state) end
+    function Doors.GetDoorState(doorId)                 return lib:GetDoorState(doorId) end
+end
+
 -- ── Target Bridge (Target) ──────────────────────────────────────
 
 Target = {}
 
 if not isServer then
-    function Target.AddModel(models, options)       return lib:AddTargetModel(models, options) end
-    function Target.AddEntity(entity, options)      return lib:AddTargetEntity(entity, options) end
-    function Target.Remove(handle, name)            return lib:RemoveTarget(handle, name) end
+    function Target.AddModel(models, options)          return lib:AddTargetModel(models, options) end
+    function Target.AddEntity(entity, options)         return lib:AddTargetEntity(entity, options) end
+    function Target.Remove(handle, name)               return lib:RemoveTarget(handle, name) end
+    function Target.RemoveModel(models, names)         return lib:RemoveModelTarget(models, names) end
 end
 
 -- ── Utils Bridge (Utils) ────────────────────────────────────────
