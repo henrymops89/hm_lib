@@ -28,10 +28,11 @@ hm_lib detects your entire server stack on first use and logs the result to the 
 ══════════════════════════════════════════════
   Framework:     QBX
   Inventory:     ox_inventory
-  Banking:       renewed-banking
+  Banking:       qb-banking
   Target:        ox_target
   Garage:        qb-garages
   VehicleKeys:   qb-vehiclekeys
+  DoorLock:      ox_doorlock
 ══════════════════════════════════════════════
 ```
 
