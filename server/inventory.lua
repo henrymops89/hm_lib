@@ -11,7 +11,17 @@ function GetItemCount(src, item)
     elseif inv == 'chezza-inventory' then
         return exports['chezza-inventory']:GetItemCount(src, item)
     elseif inv == 'qs-inventory' then
-        return exports['qs-inventory']:GetItemTotalAmount(src, item)
+        -- GetItemTotalAmount removed in newer QS versions; iterate GetInventory instead
+        local inventory = exports['qs-inventory']:GetInventory(src)
+        local count = 0
+        if inventory then
+            for _, slot in pairs(inventory) do
+                if slot and slot.name == item then
+                    count = count + (slot.amount or slot.count or 1)
+                end
+            end
+        end
+        return count
     elseif inv == 'codem-inventory' then
         return exports['codem-inventory']:GetItemsTotalAmount(src, item)
     elseif inv == 'core_inventory' then
@@ -42,7 +52,7 @@ function AddItem(src, item, amount, metadata)
     elseif inv == 'chezza-inventory' then
         return exports['chezza-inventory']:AddItem(src, item, amount, metadata)
     elseif inv == 'qs-inventory' then
-        return exports['qs-inventory']:AddItem(src, item, amount, nil, metadata)
+        return exports['qs-inventory']:AddItem(src, item, amount, metadata)
     elseif inv == 'codem-inventory' then
         return exports['codem-inventory']:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'core_inventory' then
