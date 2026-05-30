@@ -27,7 +27,7 @@ function GetItemCount(src, item)
     elseif inv == 'core_inventory' then
         return exports['core_inventory']:getItemCount(src, item)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
-        return exports['tgiann-inventory']:GetItem(src, item, nil, true)
+        return exports['tgiann-inventory']:GetItemCount(src, item)
     elseif inv == 'origen_inventory' then
         return exports['origen_inventory']:getItemCount(src, item)
     elseif inv == 'qb-inventory' or inv == 'ps-inventory' then

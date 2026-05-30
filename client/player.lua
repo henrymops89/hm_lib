@@ -118,6 +118,8 @@ function GetItemCount(pedOrItem, itemNameOrNil)
 
     if inv == 'ox_inventory' then
         count = exports.ox_inventory:Search('count', itemName) or 0
+    elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
+        count = exports['tgiann-inventory']:GetItemCount(itemName) or 0
     else
         local pData = GetPlayerData()
         if pData and pData.inventory then
