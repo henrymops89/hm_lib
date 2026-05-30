@@ -26,6 +26,10 @@ function GiveJobVehicleKeys(plate, vehicle)
         exports['wasabi_carkeys']:GiveKey(plate)
         SetVehicleDoorsLocked(vehicle, 1)
 
+    elseif keysSystem == 'wasabi-carlock' then
+        exports['wasabi-carlock']:GiveKey(plate)
+        SetVehicleDoorsLocked(vehicle, 1)
+
     elseif keysSystem == 'renewed-vehiclekeys' then
         exports['Renewed-Vehiclekeys']:GiveKey(plate)
         SetVehicleDoorsLocked(vehicle, 1)

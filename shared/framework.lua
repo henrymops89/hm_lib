@@ -115,6 +115,8 @@ local function Detect()
         HMLib.VehicleKeys = 'qs-vehiclekeys'
     elseif GetResourceState('wasabi_carkeys') == 'started' then
         HMLib.VehicleKeys = 'wasabi_carkeys'
+    elseif GetResourceState('wasabi-carlock') == 'started' then
+        HMLib.VehicleKeys = 'wasabi-carlock'
     elseif GetResourceState('Renewed-Vehiclekeys') == 'started' or GetResourceState('renewed-vehiclekeys') == 'started' then
         HMLib.VehicleKeys = 'renewed-vehiclekeys'
     elseif GetResourceState('LegacyFuel') == 'started' then
