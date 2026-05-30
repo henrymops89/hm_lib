@@ -15,28 +15,28 @@ function GiveJobVehicleKeys(plate, vehicle)
         -- TriggerServerEvent is called separately (see CacheJobVehicle)
         -- Unlock the vehicle so the player can enter without a hotwire prompt
         SetVehicleNeedsToBeHotwired(vehicle, false)
-        SetVehicleDoorLock(vehicle, 1) -- unlocked
+        SetVehicleDoorsLocked(vehicle, 1) -- unlocked
 
     elseif keysSystem == 'qb-vehiclekeys' then
         TriggerEvent('vehiclekeys:client:SetOwner', plate)
-        SetVehicleDoorLock(vehicle, 1)
+        SetVehicleDoorsLocked(vehicle, 1)
 
     elseif keysSystem == 'qs-vehiclekeys' then
         exports['qs-vehiclekeys']:GiveKeys(plate)
-        SetVehicleDoorLock(vehicle, 1)
+        SetVehicleDoorsLocked(vehicle, 1)
 
     elseif keysSystem == 'wasabi_carkeys' then
         exports['wasabi_carkeys']:GiveKey(plate)
-        SetVehicleDoorLock(vehicle, 1)
+        SetVehicleDoorsLocked(vehicle, 1)
 
     elseif keysSystem == 'renewed-vehiclekeys' then
         exports['Renewed-Vehiclekeys']:GiveKey(plate)
-        SetVehicleDoorLock(vehicle, 1)
+        SetVehicleDoorsLocked(vehicle, 1)
 
     else
         -- No keys system: just unlock so the player can drive
         SetVehicleNeedsToBeHotwired(vehicle, false)
-        SetVehicleDoorLock(vehicle, 1)
+        SetVehicleDoorsLocked(vehicle, 1)
     end
 end
 
@@ -57,6 +57,8 @@ function CacheJobVehicle(plate, modelName, label)
             label        = label or modelName or plate,
         })
 
+    elseif garageSystem == 'qs-advancedgarages' then
+        -- qs-advancedgarages handles persistence server-side; nothing needed client-side
     elseif garageSystem == 'qb-garages' then
         -- qb-garages doesn't track job vehicles separately; nothing needed
     end

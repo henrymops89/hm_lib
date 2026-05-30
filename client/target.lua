@@ -104,11 +104,3 @@ function RemoveTarget(handle, name)
         end
     end
 end
-
-function RemoveModelTarget(models, names)
-    local TargetSystem = exports['hm_lib']:GetTargetSystem()
-    if TargetSystem == 'ox_target' then
-        if type(models) ~= 'table' then models = { models } end
-        exports.ox_target:removeModel(models, names)
-    end
-end
