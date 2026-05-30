@@ -9,6 +9,7 @@ HMLib = {
     Target      = 'none',
     Garage      = 'builtin',
     VehicleKeys = 'none',
+    DoorLock    = 'undetected',
 }
 
 -- ── Detection ───────────────────────────────────────────────────
@@ -123,6 +124,15 @@ local function Detect()
         HMLib.VehicleKeys = 'none'
     end
 
+    -- Door Lock Detection
+    if GetResourceState('cd_doorlock') == 'started' then
+        HMLib.DoorLock = 'cd_doorlock'
+    elseif GetResourceState('ox_doorlock') == 'started' then
+        HMLib.DoorLock = 'ox_doorlock'
+    else
+        HMLib.DoorLock = 'none'
+    end
+
     -- Target Detection
     if GetResourceState('ox_target') == 'started' then
         HMLib.Target = 'ox_target'
@@ -148,6 +158,7 @@ local function Detect()
     print(('^2  Target:       ^7 %-15s'):format(HMLib.Target))
     print(('^2  Garage:       ^7 %-15s'):format(HMLib.Garage))
     print(('^2  VehicleKeys:  ^7 %-15s'):format(HMLib.VehicleKeys))
+    print(('^2  DoorLock:     ^7 %-15s'):format(HMLib.DoorLock))
     print('^2══════════════════════════════════════════════^7')
 end
 
@@ -183,6 +194,11 @@ function GetVehicleKeysSystem()
     return HMLib.VehicleKeys
 end
 
+function GetDoorLockSystem()
+    if HMLib.DoorLock == 'undetected' then Detect() end
+    return HMLib.DoorLock
+end
+
 -- ── Dynamic Exports ─────────────────────────────────────────────
 
 exports('GetFramework',       GetFramework)
@@ -191,6 +207,7 @@ exports('GetBanking',         GetBanking)
 exports('GetTargetSystem',    GetTargetSystem)
 exports('GetGarageSystem',    GetGarageSystem)
 exports('GetVehicleKeysSystem', GetVehicleKeysSystem)
+exports('GetDoorLockSystem',   GetDoorLockSystem)
 
 exports('GetInteractionMode', function()
     local target = exports.hm_lib:GetTargetSystem()

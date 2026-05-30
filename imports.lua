@@ -17,6 +17,7 @@ function Fr.GetBankingSystem()      return lib:GetBanking() end
 function Fr.GetTargetSystem()         return lib:GetTargetSystem() end
 function Fr.GetGarageSystem()         return lib:GetGarageSystem() end
 function Fr.GetVehicleKeysSystem()    return lib:GetVehicleKeysSystem() end
+function Fr.GetDoorLockSystem()       return lib:GetDoorLockSystem() end
 function Fr.GetInteractionMode()      return lib:GetInteractionMode() end
 function Fr.IsResourceStarted(res)  return lib:IsResourceStarted(res) end
 
@@ -62,6 +63,18 @@ else
     function Inv.HasItem(item, amount)
         return (lib:GetItemCount(item) or 0) >= (amount or 1)
     end
+end
+
+-- ── Door Lock Bridge (Doors) ────────────────────────────────────
+
+Doors = {}
+
+if isServer then
+    function Doors.SetDoorState(doorId, state)          return lib:SetDoorState(doorId, state) end
+    function Doors.LockdownBuilding(locationGroup, state) return lib:LockdownBuilding(locationGroup, state) end
+else
+    function Doors.SetDoorState(doorId, state)          return lib:SetDoorState(doorId, state) end
+    function Doors.GetDoorState(doorId)                 return lib:GetDoorState(doorId) end
 end
 
 -- ── Target Bridge (Target) ──────────────────────────────────────
