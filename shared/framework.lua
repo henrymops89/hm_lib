@@ -12,6 +12,8 @@ HMLib = {
     DoorLock    = 'undetected',
 }
 
+local HMLib_VERSION = '1.1.0'
+
 -- ── Detection ───────────────────────────────────────────────────
 
 local function Detect()
@@ -121,6 +123,7 @@ local function Detect()
     print(('^2  Garage:       ^7 %-15s'):format(HMLib.Garage))
     print(('^2  VehicleKeys:  ^7 %-15s'):format(HMLib.VehicleKeys))
     print(('^2  DoorLock:     ^7 %-15s'):format(HMLib.DoorLock))
+    print(('^2  Version:      ^7 %-15s'):format(HMLib_VERSION))
     print('^2══════════════════════════════════════════════^7')
 end
 
@@ -161,6 +164,32 @@ function GetDoorLockSystem()
     return HMLib.DoorLock
 end
 
+-- ── Version ─────────────────────────────────────────────────────
+
+local function ParseVersion(v)
+    local maj, min, pat = v:match('^(%d+)%.(%d+)%.(%d+)$')
+    return tonumber(maj) or 0, tonumber(min) or 0, tonumber(pat) or 0
+end
+
+function GetVersion()
+    return HMLib_VERSION
+end
+
+function CheckMinVersion(required)
+    local rMaj, rMin, rPat = ParseVersion(required)
+    local cMaj, cMin, cPat = ParseVersion(HMLib_VERSION)
+    local ok = (cMaj > rMaj)
+        or (cMaj == rMaj and cMin > rMin)
+        or (cMaj == rMaj and cMin == rMin and cPat >= rPat)
+    local caller = GetInvokingResource() or 'unknown'
+    if ok then
+        print(('^2[hm_lib] %s >= %s  →  %s  ✓^7'):format(caller, required, HMLib_VERSION))
+    else
+        print(('^1[hm_lib] %s >= %s  →  %s  ✗  (update hm_lib!)^7'):format(caller, required, HMLib_VERSION))
+    end
+    return ok
+end
+
 -- ── Dynamic Exports ─────────────────────────────────────────────
 
 exports('GetFramework',       GetFramework)
@@ -170,6 +199,8 @@ exports('GetTargetSystem',    GetTargetSystem)
 exports('GetGarageSystem',    GetGarageSystem)
 exports('GetVehicleKeysSystem', GetVehicleKeysSystem)
 exports('GetDoorLockSystem',   GetDoorLockSystem)
+exports('GetVersion',          GetVersion)
+exports('CheckMinVersion',     CheckMinVersion)
 
 exports('GetInteractionMode', function()
     local target = exports.hm_lib:GetTargetSystem()

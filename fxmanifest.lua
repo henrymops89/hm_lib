@@ -49,6 +49,8 @@ exports {
     'GetGarageSystem',
     'GetVehicleKeysSystem',
     'GetDoorLockSystem',
+    'GetVersion',
+    'CheckMinVersion',
     'GetInteractionMode',
     'IsResourceStarted',
     'CreateCommand',

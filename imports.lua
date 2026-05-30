@@ -18,6 +18,8 @@ function Fr.GetTargetSystem()         return lib:GetTargetSystem() end
 function Fr.GetGarageSystem()         return lib:GetGarageSystem() end
 function Fr.GetVehicleKeysSystem()    return lib:GetVehicleKeysSystem() end
 function Fr.GetDoorLockSystem()       return lib:GetDoorLockSystem() end
+function Fr.GetVersion()              return lib:GetVersion() end
+function Fr.CheckMinVersion(min)      return lib:CheckMinVersion(min) end
 function Fr.GetInteractionMode()      return lib:GetInteractionMode() end
 function Fr.IsResourceStarted(res)  return lib:IsResourceStarted(res) end
 
