@@ -6,8 +6,6 @@ function GetItemCount(src, item)
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
         return exports.ox_inventory:GetItemCount(src, item)
-    elseif inv == 'wasabi_inventory' then
-        return exports.wasabi_inventory:GetItemCount(src, item)
     elseif inv == 'chezza-inventory' then
         return exports['chezza-inventory']:GetItemCount(src, item)
     elseif inv == 'qs-inventory' then
@@ -22,8 +20,8 @@ function GetItemCount(src, item)
             end
         end
         return count
-    elseif inv == 'codem-inventory' then
-        return exports['codem-inventory']:GetItemsTotalAmount(src, item)
+    elseif inv == 'codem-inventory' or inv == 'm-inventory' then
+        return exports[inv]:GetItemsTotalAmount(src, item)
     elseif inv == 'core_inventory' then
         return exports['core_inventory']:getItemCount(src, item)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
@@ -47,14 +45,12 @@ function AddItem(src, item, amount, metadata)
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
         return exports.ox_inventory:AddItem(src, item, amount, metadata)
-    elseif inv == 'wasabi_inventory' then
-        return exports.wasabi_inventory:AddItem(src, item, amount, metadata)
     elseif inv == 'chezza-inventory' then
         return exports['chezza-inventory']:AddItem(src, item, amount, metadata)
     elseif inv == 'qs-inventory' then
         return exports['qs-inventory']:AddItem(src, item, amount, metadata)
-    elseif inv == 'codem-inventory' then
-        return exports['codem-inventory']:AddItem(src, item, amount, nil, metadata)
+    elseif inv == 'codem-inventory' or inv == 'm-inventory' then
+        return exports[inv]:AddItem(src, item, amount, nil, metadata)
     elseif inv == 'core_inventory' then
         return exports['core_inventory']:addItem(src, item, amount, metadata)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
@@ -77,14 +73,12 @@ function RemoveItem(src, item, amount, metadata)
     local inv = exports['hm_lib']:GetInventory()
     if inv == 'ox_inventory' then
         return exports.ox_inventory:RemoveItem(src, item, amount, metadata)
-    elseif inv == 'wasabi_inventory' then
-        return exports.wasabi_inventory:RemoveItem(src, item, amount, metadata)
     elseif inv == 'chezza-inventory' then
         return exports['chezza-inventory']:RemoveItem(src, item, amount, metadata)
     elseif inv == 'qs-inventory' then
         return exports['qs-inventory']:RemoveItem(src, item, amount)
-    elseif inv == 'codem-inventory' then
-        return exports['codem-inventory']:RemoveItem(src, item, amount)
+    elseif inv == 'codem-inventory' or inv == 'm-inventory' then
+        return exports[inv]:RemoveItem(src, item, amount)
     elseif inv == 'core_inventory' then
         return exports['core_inventory']:removeItem(src, item, amount)
     elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then

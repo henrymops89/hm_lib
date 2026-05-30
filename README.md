@@ -47,7 +47,7 @@ hm_lib detects your entire server stack on first use and logs the result to the 
 
 ---
 
-### 🏷️ Inventory Support (13+)
+### 🏷️ Inventory Support (12+)
 
 | Resource | Status |
 |----------|--------|
@@ -56,8 +56,7 @@ hm_lib detects your entire server stack on first use and logs the result to the 
 | qs-inventory | ✅ |
 | ps-inventory | ✅ |
 | tgiann-inventory | ✅ |
-| wasabi_inventory | ✅ |
-| codem-inventory | ✅ |
+| m-inventory (codem) | ✅ |
 | chezza-inventory | ✅ |
 | core_inventory | ✅ |
 | origen_inventory | ✅ |

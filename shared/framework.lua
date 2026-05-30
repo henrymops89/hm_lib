@@ -29,7 +29,9 @@ local function Detect()
     -- Inventory Detection
     if GetResourceState('ox_inventory') == 'started' then
         HMLib.Inventory = 'ox_inventory'
-    elseif GetResourceState('codem-inventory') == 'started' or GetResourceState('m-inventory') == 'started' then
+    elseif GetResourceState('m-inventory') == 'started' then
+        HMLib.Inventory = 'm-inventory'
+    elseif GetResourceState('codem-inventory') == 'started' then
         HMLib.Inventory = 'codem-inventory'
     elseif GetResourceState('qs-inventory') == 'started' then
         HMLib.Inventory = 'qs-inventory'
@@ -37,8 +39,6 @@ local function Detect()
         HMLib.Inventory = 'ps-inventory'
     elseif GetResourceState('qb-inventory') == 'started' then
         HMLib.Inventory = 'qb-inventory'
-    elseif GetResourceState('wasabi_inventory') == 'started' then
-        HMLib.Inventory = 'wasabi_inventory'
     elseif GetResourceState('esx_inventory') == 'started' then
         HMLib.Inventory = 'esx_inventory'
     elseif GetResourceState('core_inventory') == 'started' then
