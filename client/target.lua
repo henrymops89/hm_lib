@@ -105,6 +105,24 @@ function RemoveTarget(handle, name)
     end
 end
 
+function AddGlobalVehicle(options)
+    local TargetSystem = exports['hm_lib']:GetTargetSystem()
+    if TargetSystem == 'ox_target' then
+        exports.ox_target:addGlobalVehicle(options)
+    elseif TargetSystem == 'qb-target' then
+        exports['qb-target']:AddGlobalVehicle(options)
+    end
+end
+
+function AddGlobalPlayer(options)
+    local TargetSystem = exports['hm_lib']:GetTargetSystem()
+    if TargetSystem == 'ox_target' then
+        exports.ox_target:addGlobalPlayer(options)
+    elseif TargetSystem == 'qb-target' then
+        exports['qb-target']:AddGlobalPlayer(options)
+    end
+end
+
 function RemoveModelTarget(models, names)
     local TargetSystem = exports['hm_lib']:GetTargetSystem()
     if TargetSystem == 'ox_target' then

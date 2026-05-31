@@ -18,12 +18,16 @@ function Fr.GetTargetSystem()         return lib:GetTargetSystem() end
 function Fr.GetGarageSystem()         return lib:GetGarageSystem() end
 function Fr.GetVehicleKeysSystem()    return lib:GetVehicleKeysSystem() end
 function Fr.GetDoorLockSystem()       return lib:GetDoorLockSystem() end
+function Fr.GetFuelSystem()           return lib:GetFuelSystem() end
 function Fr.GetVersion()              return lib:GetVersion() end
 function Fr.CheckMinVersion(min)      return lib:CheckMinVersion(min) end
 function Fr.GetInteractionMode()      return lib:GetInteractionMode() end
 function Fr.IsResourceStarted(res)  return lib:IsResourceStarted(res) end
 
 if isServer then
+    function Fr.SetMetadata(src, key, value)    return lib:SetMetadata(src, key, value) end
+    function Fr.GetMetadata(src, key)           return lib:GetMetadata(src, key) end
+    function Fr.HasPermission(src, permission)  return lib:HasPermission(src, permission) end
     function Fr.GetPlayer(src)                  return lib:GetPlayer(src) end
     function Fr.GetIdentifier(src)              return lib:GetIdentifier(src) end
     function Fr.GetPlayerName(src)              return lib:GetPlayerName(src) end
@@ -54,17 +58,29 @@ end
 Inv = {}
 
 if isServer then
-    function Inv.GetItemCount(src, item)            return lib:GetItemCount(src, item) end
-    function Inv.AddItem(src, item, amount, meta)   return lib:AddItem(src, item, amount, meta) end
+    function Inv.GetItemCount(src, item)             return lib:GetItemCount(src, item) end
+    function Inv.AddItem(src, item, amount, meta)    return lib:AddItem(src, item, amount, meta) end
     function Inv.RemoveItem(src, item, amount, meta) return lib:RemoveItem(src, item, amount, meta) end
-    function Inv.HasItem(src, item, amount)
+    function Inv.HasItem(src, item)                  return lib:HasItem(src, item) end
+    function Inv.GetInventory(src)                   return lib:GetPlayerInventory(src) end
+    function Inv.RegisterStash(name, slots, weight)  return lib:RegisterStash(name, slots, weight) end
+    function Inv.CanCarry(src, item, amount)
         return (lib:GetItemCount(src, item) or 0) >= (amount or 1)
     end
 else
-    function Inv.GetItemCount(item)                 return lib:GetItemCount(item) end
+    function Inv.GetItemCount(item)  return lib:GetItemCount(item) end
     function Inv.HasItem(item, amount)
         return (lib:GetItemCount(item) or 0) >= (amount or 1)
     end
+end
+
+-- ── Fuel Bridge (Fuel) ──────────────────────────────────────────
+
+Fuel = {}
+
+if not isServer then
+    function Fuel.Get(veh)          return lib:GetFuel(veh) end
+    function Fuel.Set(veh, amount)  return lib:SetFuel(veh, amount) end
 end
 
 -- ── Door Lock Bridge (Doors) ────────────────────────────────────
@@ -127,6 +143,8 @@ if not isServer then
     function Target.AddEntity(entity, options)         return lib:AddTargetEntity(entity, options) end
     function Target.Remove(handle, name)               return lib:RemoveTarget(handle, name) end
     function Target.RemoveModel(models, names)         return lib:RemoveModelTarget(models, names) end
+    function Target.AddGlobalVehicle(options)          return lib:AddGlobalVehicle(options) end
+    function Target.AddGlobalPlayer(options)           return lib:AddGlobalPlayer(options) end
 end
 
 -- ── Utils Bridge (Utils) ────────────────────────────────────────

@@ -28,6 +28,7 @@ client_scripts {
     'client/player.lua',
     'client/garage.lua',
     'client/doors.lua',
+    'client/fuel.lua',
     'client/callbacks.lua',
     'client/main.lua'
 }
@@ -52,6 +53,7 @@ exports {
     'GetGarageSystem',
     'GetVehicleKeysSystem',
     'GetDoorLockSystem',
+    'GetFuelSystem',
     'GetVersion',
     'CheckMinVersion',
     'GetInteractionMode',
@@ -77,6 +79,10 @@ exports {
     'GetDoorState',
     'TriggerServerCallback',
     'RegisterClientCallback',
+    'GetFuel',
+    'SetFuel',
+    'AddGlobalVehicle',
+    'AddGlobalPlayer',
 }
 
 server_exports {
@@ -112,5 +118,11 @@ server_exports {
     'GetLicenseId',
     'GetSteamId',
     'RegisterCallback',
-    'TriggerClientCallback'
+    'TriggerClientCallback',
+    'SetMetadata',
+    'GetMetadata',
+    'HasPermission',
+    'HasItem',
+    'GetPlayerInventory',
+    'RegisterStash'
 }

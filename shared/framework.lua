@@ -10,6 +10,7 @@ HMLib = {
     Garage      = 'builtin',
     VehicleKeys = 'none',
     DoorLock    = 'undetected',
+    Fuel        = 'undetected',
 }
 
 local HMLib_VERSION = '1.2.0'
@@ -110,6 +111,23 @@ local function Detect()
         HMLib.Target = 'none'
     end
 
+    -- Fuel Detection
+    if GetResourceState('ox_fuel') == 'started' then
+        HMLib.Fuel = 'ox_fuel'
+    elseif GetResourceState('LegacyFuel') == 'started' then
+        HMLib.Fuel = 'LegacyFuel'
+    elseif GetResourceState('cdn-fuel') == 'started' then
+        HMLib.Fuel = 'cdn-fuel'
+    elseif GetResourceState('ps-fuel') == 'started' then
+        HMLib.Fuel = 'ps-fuel'
+    elseif GetResourceState('lj-fuel') == 'started' then
+        HMLib.Fuel = 'lj-fuel'
+    elseif GetResourceState('ND_Fuel') == 'started' then
+        HMLib.Fuel = 'ND_Fuel'
+    else
+        HMLib.Fuel = 'none'
+    end
+
     -- Console Output
     print('^2══════════════════════════════════════════════^7')
     print('^2   HM Lib — System Detection^7')
@@ -121,6 +139,7 @@ local function Detect()
     print(('^2  Garage:       ^7 %-15s'):format(HMLib.Garage))
     print(('^2  VehicleKeys:  ^7 %-15s'):format(HMLib.VehicleKeys))
     print(('^2  DoorLock:     ^7 %-15s'):format(HMLib.DoorLock))
+    print(('^2  Fuel:         ^7 %-15s'):format(HMLib.Fuel))
     print(('^2  Version:      ^7 %-15s'):format(HMLib_VERSION))
     print('^2══════════════════════════════════════════════^7')
 end
@@ -162,6 +181,11 @@ function GetDoorLockSystem()
     return HMLib.DoorLock
 end
 
+function GetFuelSystem()
+    if HMLib.Fuel == 'undetected' then Detect() end
+    return HMLib.Fuel
+end
+
 -- ── Version ─────────────────────────────────────────────────────
 
 local function ParseVersion(v)
@@ -197,6 +221,7 @@ exports('GetTargetSystem',    GetTargetSystem)
 exports('GetGarageSystem',    GetGarageSystem)
 exports('GetVehicleKeysSystem', GetVehicleKeysSystem)
 exports('GetDoorLockSystem',   GetDoorLockSystem)
+exports('GetFuelSystem',       GetFuelSystem)
 exports('GetVersion',          GetVersion)
 exports('CheckMinVersion',     CheckMinVersion)
 

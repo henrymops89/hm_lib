@@ -224,6 +224,46 @@ function RegisterUsableItem(name, cb)
     end
 end
 
+-- ── Metadata & Permissions ───────────────────────────────────────
+
+function SetMetadata(src, key, value)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return false end
+    if FrameworkName == 'esx' then
+        player.setMeta(key, value)
+    elseif FrameworkName == 'qb' then
+        player.Functions.SetMetaData(key, value)
+    elseif FrameworkName == 'qbx' then
+        player.Functions.SetMetaData(key, value)
+    end
+    return true
+end
+
+function GetMetadata(src, key)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return nil end
+    if FrameworkName == 'esx' then
+        return player.getMeta(key)
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return player.PlayerData.metadata and player.PlayerData.metadata[key] or nil
+    end
+    return nil
+end
+
+function HasPermission(src, permission)
+    EnsureFramework()
+    local player = GetPlayer(src)
+    if not player then return false end
+    if FrameworkName == 'esx' then
+        return player.getGroup() == permission
+    elseif FrameworkName == 'qb' or FrameworkName == 'qbx' then
+        return IsPlayerAceAllowed(src, permission)
+    end
+    return IsPlayerAceAllowed(src, permission)
+end
+
 -- ── Exports ─────────────────────────────────────────────────────
 
 exports('GetPlayer',              GetPlayer)
@@ -248,6 +288,9 @@ exports('AddSocietyMoney',    AddSocietyMoney)
 exports('RemoveSocietyMoney', RemoveSocietyMoney)
 exports('NotifyServer',       NotifyServer)
 exports('RegisterUsableItem', RegisterUsableItem)
+exports('SetMetadata',        SetMetadata)
+exports('GetMetadata',        GetMetadata)
+exports('HasPermission',      HasPermission)
 
 print('^2[HM Lib] Server-Side started — framework detection deferred until first use.^7')
 

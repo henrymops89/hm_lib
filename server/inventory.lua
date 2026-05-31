@@ -77,3 +77,60 @@ function RemoveItem(src, item, amount, metadata)
         if player then player.Functions.RemoveItem(item, amount) end
     end
 end
+
+--- Returns { label, count, metadata } if player has the item, nil if not.
+function HasItem(src, item)
+    local inv = exports['hm_lib']:GetInventory()
+    if inv == 'ox_inventory' then
+        local data = exports.ox_inventory:GetItem(src, item)
+        if not data or data.count == 0 then return nil end
+        return { label = data.label, count = data.count, metadata = data.metadata }
+    elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
+        local data = exports['tgiann-inventory']:GetItemByName(src, item)
+        if not data or (data.amount or 0) == 0 then return nil end
+        return { label = data.label, count = data.amount, metadata = data.info }
+    elseif inv == 'codem-inventory' or inv == 'm-inventory' then
+        local data = exports[inv]:GetItemByName(src, item)
+        if not data or (data.amount or 0) == 0 then return nil end
+        return { label = data.label, count = data.amount, metadata = data.info }
+    elseif inv == 'qs-inventory' then
+        local data = exports['qs-inventory']:GetItemByName(src, item)
+        if not data or (data.amount or 0) == 0 then return nil end
+        return { label = data.label, count = data.amount, metadata = data.info }
+    end
+    local count = GetItemCount(src, item)
+    return count > 0 and { count = count } or nil
+end
+
+--- Returns the full inventory as a table.
+function GetPlayerInventory(src)
+    local inv = exports['hm_lib']:GetInventory()
+    if inv == 'ox_inventory' then
+        local items = exports.ox_inventory:GetInventoryItems(src)
+        local data = {}
+        if items then
+            for k, v in pairs(items) do
+                data[k] = v
+                data[k].amount = v.count
+            end
+        end
+        return data
+    elseif inv == 'tgiann-inventory' or inv == 'tgiann_inventory' then
+        return exports['tgiann-inventory']:GetPlayerItems(src) or {}
+    elseif inv == 'codem-inventory' or inv == 'm-inventory' then
+        return exports[inv]:GetInventory(src) or {}
+    elseif inv == 'qs-inventory' then
+        return exports['qs-inventory']:GetInventory(src) or {}
+    end
+    return {}
+end
+
+--- Register a stash (ox_inventory only).
+function RegisterStash(name, slots, maxWeight)
+    local inv = exports['hm_lib']:GetInventory()
+    if inv == 'ox_inventory' then
+        exports.ox_inventory:RegisterStash(name, 'Stash - ' .. name, slots, maxWeight)
+        return true
+    end
+    return false
+end
