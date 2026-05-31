@@ -9,13 +9,27 @@
 
 ---
 
-✨ ## New Features - 1.2.0
-Discord Webhooks — Send embeds, logs and staff alerts directly to Discord via SendWebhook, SendDiscordLog, SendStaffAlert
-Player Identifiers — Retrieve Steam, Discord, License and more with GetIdentifiers, GetDiscordId, GetLicenseId, GetSteamId
-Callback System — Bidirectional Server↔Client callbacks with 5s timeout via RegisterCallback, TriggerServerCallback, TriggerClientCallback
-Door Lock Bridge — ox_doorlock & cd_doorlock support via SetDoorState, GetDoorState, LockdownBuilding
-Version Management — GetVersion & CheckMinVersion with console output per resource
+## v1.2.0 — Webhooks, Callbacks & More
 
+### ✨ New Features
+- **Discord Webhooks** — Send embeds, logs and staff alerts directly to Discord via `SendWebhook`, `SendDiscordLog`, `SendStaffAlert`
+- **Player Identifiers** — Retrieve Steam, Discord, License and more with `GetIdentifiers`, `GetDiscordId`, `GetLicenseId`, `GetSteamId`
+- **Callback System** — Bidirectional Server↔Client callbacks with 5s timeout via `RegisterCallback`, `TriggerServerCallback`, `TriggerClientCallback`
+- **Door Lock Bridge** — `ox_doorlock` & `cd_doorlock` support via `SetDoorState`, `GetDoorState`, `LockdownBuilding`
+- **Version Management** — `GetVersion` & `CheckMinVersion` with console output per resource
+
+### 🔧 Improvements
+- Added `qs-advancedgarages` & `wasabi-carlock` support
+- Fixed `qs-inventory` compatibility (replaced deprecated `GetItemTotalAmount`)
+- Fixed `cd_garage` key handling (`AddKeys` + `AddKeysOwnedVehicle`)
+- `m-inventory` (codem) now correctly detected and called by resource name
+- Removed unsupported inventory systems: `chezza`, `core_inventory`, `origen`, `mf`, `ak47`
+- Removed unsupported banking systems — simplified to `qb-banking` + framework fallback
+
+### 📦 imports.lua
+New global bridges: `Webhook`, `Ids`, `Cb` alongside existing `Fr`, `Inv`, `Doors`, `Target`, `Utils`
+
+---
 ## Overview
 
 `hm_lib` is the shared foundation used internally by all MopsScripts resources. It abstracts away framework, inventory, banking, target, garage and vehicle key differences — so your scripts work on any server without a single line of manual config.
