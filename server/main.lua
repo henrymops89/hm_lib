@@ -44,6 +44,40 @@ function GetIdentifier(src)
     return nil
 end
 
+function GetIdentifiers(src)
+    local ids = {}
+    for i = 0, GetNumPlayerIdentifiers(src) - 1 do
+        local id = GetPlayerIdentifier(src, i)
+        if id then
+            if     id:find('^steam:')   then ids.steam   = id
+            elseif id:find('^license2:') then ids.license2 = id
+            elseif id:find('^license:') then ids.license  = id
+            elseif id:find('^discord:') then ids.discord  = id
+            elseif id:find('^live:')    then ids.live     = id
+            elseif id:find('^xbl:')     then ids.xbl      = id
+            elseif id:find('^fivem:')   then ids.fivem    = id
+            elseif id:find('^ip:')      then ids.ip       = id
+            end
+        end
+    end
+    return ids
+end
+
+function GetDiscordId(src)
+    local id = GetIdentifiers(src).discord
+    return id and id:gsub('discord:', '') or nil
+end
+
+function GetLicenseId(src)
+    local id = GetIdentifiers(src).license
+    return id and id:gsub('license:', '') or nil
+end
+
+function GetSteamId(src)
+    local id = GetIdentifiers(src).steam
+    return id and id:gsub('steam:', '') or nil
+end
+
 function GetPlayerName(src)
     EnsureFramework()
     local player = GetPlayer(src)

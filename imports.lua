@@ -79,6 +79,45 @@ else
     function Doors.GetDoorState(doorId)                 return lib:GetDoorState(doorId) end
 end
 
+-- ── Webhook Bridge (Webhook) ────────────────────────────────────
+
+Webhook = {}
+
+if isServer then
+    function Webhook.Send(webhook, title, desc, color, fields, thumb, footer)
+        return lib:SendWebhook(webhook, title, desc, color, fields, thumb, footer)
+    end
+    function Webhook.Log(webhook, message, color, author)
+        return lib:SendDiscordLog(webhook, message, color, author)
+    end
+    function Webhook.StaffAlert(webhook, rank, action, player, details)
+        return lib:SendStaffAlert(webhook, rank, action, player, details)
+    end
+end
+
+-- ── Identifier Bridge (Ids) ─────────────────────────────────────
+
+Ids = {}
+
+if isServer then
+    function Ids.GetAll(src)     return lib:GetIdentifiers(src) end
+    function Ids.GetDiscord(src) return lib:GetDiscordId(src) end
+    function Ids.GetLicense(src) return lib:GetLicenseId(src) end
+    function Ids.GetSteam(src)   return lib:GetSteamId(src) end
+end
+
+-- ── Callback Bridge (Cb) ────────────────────────────────────────
+
+Cb = {}
+
+if isServer then
+    function Cb.Register(name, handler)       return lib:RegisterCallback(name, handler) end
+    function Cb.TriggerClient(player, name, ...) return lib:TriggerClientCallback(player, name, ...) end
+else
+    function Cb.Trigger(name, cb, ...)        return lib:TriggerServerCallback(name, cb, ...) end
+    function Cb.RegisterClient(name, handler) return lib:RegisterClientCallback(name, handler) end
+end
+
 -- ── Target Bridge (Target) ──────────────────────────────────────
 
 Target = {}

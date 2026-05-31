@@ -28,6 +28,7 @@ client_scripts {
     'client/player.lua',
     'client/garage.lua',
     'client/doors.lua',
+    'client/callbacks.lua',
     'client/main.lua'
 }
 
@@ -35,6 +36,8 @@ server_scripts {
     'server/inventory.lua',
     'server/banking.lua',
     'server/doors.lua',
+    'server/webhook.lua',
+    'server/callbacks.lua',
     'server/main.lua'
 }
 
@@ -72,6 +75,8 @@ exports {
     'CacheJobVehicle',
     'SetDoorState',
     'GetDoorState',
+    'TriggerServerCallback',
+    'RegisterClientCallback',
 }
 
 server_exports {
@@ -98,5 +103,14 @@ server_exports {
     'NotifyServer',
     'RegisterUsableItem',
     'SetDoorState',
-    'LockdownBuilding'
+    'LockdownBuilding',
+    'SendWebhook',
+    'SendDiscordLog',
+    'SendStaffAlert',
+    'GetIdentifiers',
+    'GetDiscordId',
+    'GetLicenseId',
+    'GetSteamId',
+    'RegisterCallback',
+    'TriggerClientCallback'
 }
