@@ -3,7 +3,7 @@ game 'gta5'
 
 name 'hm_lib'
 description 'Centralized Library for HM Resources — MopsScripts'
-version '1.1.0'
+version '1.2.0'
 author 'MopsScripts'
 
 dependencies {

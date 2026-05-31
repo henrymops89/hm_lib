@@ -12,13 +12,11 @@ HMLib = {
     DoorLock    = 'undetected',
 }
 
-local HMLib_VERSION = '1.1.0'
+local HMLib_VERSION = '1.2.0'
 
 -- ── Detection ───────────────────────────────────────────────────
 
 local function Detect()
-    local oldFramework = HMLib.Framework
-
     -- Framework Detection
     if GetResourceState('es_extended') == 'started' then
         HMLib.Framework = 'esx'

@@ -3,7 +3,7 @@
 > Centralized multi-framework bridge for all MopsScripts resources.  
 > Zero manual config. Fully automatic detection. One unified API.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/henrymops89/hm_lib)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue)](https://github.com/henrymops89/hm_lib)
 [![License](https://img.shields.io/badge/license-Proprietary-red)](https://mopsscripts.tebex.io)
 [![FiveM](https://img.shields.io/badge/FiveM-CFX-orange)](https://cfx.re)
 
