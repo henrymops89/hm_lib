@@ -9,6 +9,13 @@
 
 ---
 
+✨ New Features - 1.2.0
+Discord Webhooks — Send embeds, logs and staff alerts directly to Discord via SendWebhook, SendDiscordLog, SendStaffAlert
+Player Identifiers — Retrieve Steam, Discord, License and more with GetIdentifiers, GetDiscordId, GetLicenseId, GetSteamId
+Callback System — Bidirectional Server↔Client callbacks with 5s timeout via RegisterCallback, TriggerServerCallback, TriggerClientCallback
+Door Lock Bridge — ox_doorlock & cd_doorlock support via SetDoorState, GetDoorState, LockdownBuilding
+Version Management — GetVersion & CheckMinVersion with console output per resource
+
 ## Overview
 
 `hm_lib` is the shared foundation used internally by all MopsScripts resources. It abstracts away framework, inventory, banking, target, garage and vehicle key differences — so your scripts work on any server without a single line of manual config.
