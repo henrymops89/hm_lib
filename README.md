@@ -9,7 +9,7 @@
 
 ---
 
-✨ New Features - 1.2.0
+✨ ## New Features - 1.2.0
 Discord Webhooks — Send embeds, logs and staff alerts directly to Discord via SendWebhook, SendDiscordLog, SendStaffAlert
 Player Identifiers — Retrieve Steam, Discord, License and more with GetIdentifiers, GetDiscordId, GetLicenseId, GetSteamId
 Callback System — Bidirectional Server↔Client callbacks with 5s timeout via RegisterCallback, TriggerServerCallback, TriggerClientCallback
